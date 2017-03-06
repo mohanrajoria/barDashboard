@@ -1,0 +1,23 @@
+{
+  "name": "bar-dashboard",
+  "version": "1.0.0",
+  "description": "bar dashboard",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohanrajoria/barDashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohanrajoria/barDashboard/issues"
+  },
+  "homepage": "https://github.com/mohanrajoria/barDashboard#readme"
+}
