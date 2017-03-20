@@ -1,0 +1,67 @@
+<div class = "dashboardContainer container">
+    <div class="row labelRow">
+        <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
+            Name
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+            Min price(rs.)
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+            Max price(rs.)
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+            Quantity
+        </div>
+        <div class="col-lg-1 col-md-1 col-xs-1 entityColumn">
+            Mixer available
+        </div>
+    </div>
+    <div class="col-md-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
+        <button type="button" name="button" class="btn btn-success">Add new cateory</button>
+        <input type = "text" placeholder="New category name" ng-model = "newCategory">
+    </div>
+    <div class="row categoryRow" ng-repeat = "categoryId in categories track by $index" ng-init = "categoryObj = categoriesHash[categoryId]">
+        <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel" ng-bind = "(categoryObj.name) + ' (' +  (categoryObj.count) + ')'"></div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="row subCategoryRow" ng-repeat = "subCateogoryId in categoryObj.subCateogoryIds" ng-init = "subCategoryObj = subCategoriesHash[subCateogoryId]">
+                <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
+                    <input type = "text" placeholder="Drink name" ng-model = "subCategoryObj.name">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Min price" min="0" ng-model = "subCategoryObj.minPrice">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Max price" min="0" ng-model = "subCategoryObj.maxPrice">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Quantity" min="0" ng-model = "subCategoryObj.quantity">
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-1 entityColumn">
+                    <input type="checkbox" ng-checked="subCategoryObj.mixer" aria-label="Mixer">
+                    <!-- <input type = "text" placeholder="Mixer name" ng-model = "subCategoryObj.mixer"> -->
+                </div>
+            </div>
+            <div class="row subCategoryRow newSubCategory">
+                <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
+                    <input type = "text" placeholder="New drink name" ng-model = "newSubCategory.name">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Min price" min="0" ng-model = "newSubCategory.minPrice">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Max price" min="0" ng-model = "newSubCategory.maxPrice">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <input type = "number" placeholder="Quantity" min="0" ng-model = "newSubCategory.quantity">
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-1 entityColumn">
+                    <input type="checkbox" ng-checked="newSubCategory.mixer" aria-label="Mixer">
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+                    <button type="button" class = "btn btn-primary" name="button">Add sub cateory</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@
   "description": "bar dashboard",
   "main": "index.js",
   "dependencies": {
+    "angular-ui-bootstrap": "^2.5.0",
     "http-server": "^0.9.0"
   },
   "devDependencies": {},

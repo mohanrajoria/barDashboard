@@ -4,15 +4,15 @@
     </ul
     <div class="tab-content">
         <div id="login">
-            <form ng-submit="processLogin()">
+            <div>
                 <div class="field-wrap">
                     <input ng-model = "emailId" type="email" placeholder="Email Address" name="email" id="email"/>
                 </div>
                 <div class="field-wrap">
                     <input ng-model = "password" type="password" placeholder="Password" name="password" id="password"/>
                 </div>
-                <button class="button button-block cursor-pointer">Log In</button>
-            </form>
+                <button class="button button-block cursor-pointer" ng-click = "processLogin()">Log In</button>
+            </div>
         </div>
     </div>
 </div>

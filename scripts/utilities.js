@@ -1,4 +1,5 @@
-barApp.service('utilities', function($route, $scope, $rootScope) {
+var helper = angular.module("helper", []);
+helper.service('utilityService', function() {
   let getCookie = (cookieNames) => {
     let cookie = document.cookie;
     // todo : find cookieNames in cookie and return an object
