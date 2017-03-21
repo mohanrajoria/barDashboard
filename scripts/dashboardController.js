@@ -38,27 +38,46 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         }
     }
 
+    $scope.formatCategories = function(response) {
+        if(!response || !response.data) {
+            return;
+        }
+        var data = response.data;
+        var categories = data.stockCategoryList;
+        var subCategories = data.stockSubCategoryList;
+
+        categories.forEach(function(c, i) {
+            $scope.categoriesHash[c.id] = c;
+            $scope.categories.push(c.id);
+        })
+
+        subCategories.forEach(function(sc, j) {
+            $scope.subCategoriesHash[sc.id] = sc;
+        })
+
+    }
+
 
 
     $scope.response = {
 data:
 {
-stockListScreenHeaderInfo:
-{
-title: "Bar Stock Exchange",
-subTitle: "The Rock Bar, Noida"
-},
 stockCategoryListTags:
 {
 tag1: "Alcohol Name",
 tag2: "High",
 tag3: "Low",
-tag4: "Price(Rs.)"
+tag4: "Price(Rs.)",
+tag5: "Mixer Available"
 },
 stockCategoryList:
 [
 {
-_id: "58b5aea69eddf2d9a7a0184a",
+sub_category_ids:
+[
+"id_breezer"
+],
+_id: "58ca53f170cc840757dfb086",
 type: "category",
 id: "id_alcopop",
 name: "ALCOPOP",
@@ -67,7 +86,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184b",
+sub_category_ids:
+[
+"id_jack_daniels",
+"id_irish_jameson",
+"id_jim_beam_white"
+],
+_id: "58ca53f170cc840757dfb087",
 type: "category",
 id: "id_american_irish_whisky",
 name: "AMERICAN IRISH WHISKY",
@@ -76,7 +101,17 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184c",
+sub_category_ids:
+[
+"id_bud_magnum",
+"id_budweiser",
+"id_corona",
+"id_fosters",
+"id_heineken_beer",
+"id_kingfisher_ultra",
+"id_miller_high_lige"
+],
+_id: "58ca53f170cc840757dfb088",
 type: "category",
 id: "id_beers",
 name: "BEERS",
@@ -85,7 +120,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184d",
+sub_category_ids:
+[
+"id_chandon_brut_bottle",
+"id_sula_brut_btl",
+"id_sula_rose_wine_btl"
+],
+_id: "58ca53f170cc840757dfb089",
 type: "category",
 id: "id_champagne",
 name: "CHAMPAGNE",
@@ -94,7 +135,14 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184e",
+sub_category_ids:
+[
+"id_bacardi_cuba_life",
+"id_bacardi_mojito",
+"id_black_russian",
+"id_bloody_mary"
+],
+_id: "58ca53f170cc840757dfb08a",
 type: "category",
 id: "id_classic_cocktails",
 name: "CLASSIC COCKTAILS",
@@ -103,7 +151,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184f",
+sub_category_ids:
+[
+"id_beefeater",
+"id_bombay_sapphire",
+"id_gordons"
+],
+_id: "58ca53f170cc840757dfb08b",
 type: "category",
 id: "id_gin",
 name: "GIN",
@@ -112,7 +166,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01850",
+sub_category_ids:
+[
+"id_house_red_wine_btl",
+"id_house_white_wine_btl"
+],
+_id: "58ca53f170cc840757dfb08c",
 type: "category",
 id: "id_house_wine",
 name: "HOUSE WINE",
@@ -121,7 +180,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01851",
+sub_category_ids:
+[
+"id_jacob_creek_btl",
+"id_jacob_creek_by_glass"
+],
+_id: "58ca53f170cc840757dfb08d",
 type: "category",
 id: "id_imported_wine",
 name: "IMPORTED WINE",
@@ -130,7 +194,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01852",
+sub_category_ids:
+[
+"id_baileys_irish_cream",
+"id_kahlua"
+],
+_id: "58ca53f170cc840757dfb08e",
 type: "category",
 id: "id_liquers",
 name: "LIQUERS",
@@ -139,7 +208,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01853",
+sub_category_ids:
+[
+"id_appletini",
+"id_classic_martini"
+],
+_id: "58ca53f170cc840757dfb08f",
 type: "category",
 id: "id_martini",
 name: "MARTINI",
@@ -148,7 +222,20 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01854",
+sub_category_ids:
+[
+"id_coke",
+"id_diet_coke",
+"id_ginger_ale",
+"id_juice",
+"id_on_the_rocks",
+"id_red_bull",
+"id_soda",
+"id_sprite",
+"id_thums_up",
+"id_tonic_water"
+],
+_id: "58ca53f170cc840757dfb090",
 type: "category",
 id: "id_mixers",
 name: "MIXERS",
@@ -157,7 +244,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01855",
+sub_category_ids:
+[
+"id_sweet_heart",
+"id_chill_out"
+],
+_id: "58ca53f170cc840757dfb091",
 type: "category",
 id: "id_non_alcoholic",
 name: "NON ALCOHOLIC",
@@ -166,7 +258,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01856",
+sub_category_ids:
+[
+"id_black_n_white",
+"id_black_dog_12_yo",
+"id_vat_69"
+],
+_id: "58ca53f170cc840757dfb092",
 type: "category",
 id: "id_premium_whisky",
 name: "PREMIUM WHISKY",
@@ -175,7 +273,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01857",
+sub_category_ids:
+[
+"id_bacardi_black",
+"id_captain_morgan"
+],
+_id: "58ca53f170cc840757dfb093",
 type: "category",
 id: "id_rum",
 name: "RUM",
@@ -184,7 +287,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01858",
+sub_category_ids:
+[
+"id_ballantines",
+"id_dewars_white_label"
+],
+_id: "58ca53f170cc840757dfb094",
 type: "category",
 id: "id_scotch_whisky",
 name: "SCOTCH WHISKY",
@@ -193,7 +301,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01859",
+sub_category_ids:
+[
+"id_b52",
+"id_kamikaze",
+"id_tequila"
+],
+_id: "58ca53f170cc840757dfb095",
 type: "category",
 id: "id_shots",
 name: "SHOTS",
@@ -202,7 +316,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185a",
+sub_category_ids:
+[
+"id_cardhu",
+"id_oban"
+],
+_id: "58ca53f170cc840757dfb096",
 type: "category",
 id: "id_single_malts",
 name: "SINGLE MALTS",
@@ -211,7 +330,12 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185b",
+sub_category_ids:
+[
+"id_absolut",
+"id_ciroc"
+],
+_id: "58ca53f170cc840757dfb097",
 type: "category",
 id: "id_vodka",
 name: "VODKA",
@@ -220,7 +344,13 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185c",
+sub_category_ids:
+[
+"id_antiquity_blue",
+"id_blenders_pride",
+"id_signature"
+],
+_id: "58ca53f170cc840757dfb098",
 type: "category",
 id: "id_whisky",
 name: "WHISKY",
@@ -229,19 +359,10 @@ img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bo
 __v: 0
 }
 ],
-stockScreenList:
+stockSubCategoryList:
 [
 {
-_id: "58b5aea69eddf2d9a7a0184a",
-type: "category",
-id: "id_alcopop",
-name: "ALCOPOP",
-sub_category_count_text: "1 Item",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea69eddf2d9a7a0185d",
+_id: "58ca53f170cc840757dfb099",
 type: "sub_category",
 quantity: 100,
 id: "id_breezer",
@@ -254,20 +375,11 @@ max_price: 110,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.979Z",
+updated_at: "2017-03-16T08:59:29.387Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184b",
-type: "category",
-id: "id_american_irish_whisky",
-name: "AMERICAN IRISH WHISKY",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea69eddf2d9a7a0185e",
+_id: "58ca53f170cc840757dfb09a",
 type: "sub_category",
 quantity: 100,
 id: "id_jack_daniels",
@@ -281,11 +393,11 @@ price: 275,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.987Z",
+updated_at: "2017-03-16T08:59:29.390Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185f",
+_id: "58ca53f170cc840757dfb09b",
 type: "sub_category",
 quantity: 100,
 id: "id_irish_jameson",
@@ -299,11 +411,11 @@ price: 150,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.992Z",
+updated_at: "2017-03-16T08:59:29.392Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01860",
+_id: "58ca53f170cc840757dfb09c",
 type: "sub_category",
 quantity: 100,
 id: "id_jim_beam_white",
@@ -317,20 +429,11 @@ price: 93,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.995Z",
+updated_at: "2017-03-16T08:59:29.395Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184c",
-type: "category",
-id: "id_beers",
-name: "BEERS",
-sub_category_count_text: "7 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea69eddf2d9a7a01861",
+_id: "58ca53f170cc840757dfb09d",
 type: "sub_category",
 quantity: 100,
 id: "id_bud_magnum",
@@ -341,14 +444,14 @@ high: 120,
 min_price: 100,
 max_price: 120,
 price: 115,
-sold_quantity: 0,
+sold_quantity: 6,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.998Z",
+updated_at: "2017-03-16T08:59:29.397Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01862",
+_id: "58ca53f170cc840757dfb09e",
 type: "sub_category",
 quantity: 100,
 id: "id_budweiser",
@@ -362,11 +465,11 @@ price: 115,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:54.999Z",
+updated_at: "2017-03-16T08:59:29.398Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01863",
+_id: "58ca53f170cc840757dfb09f",
 type: "sub_category",
 quantity: 100,
 id: "id_corona",
@@ -380,11 +483,11 @@ price: 345,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.001Z",
+updated_at: "2017-03-16T08:59:29.403Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01864",
+_id: "58ca53f170cc840757dfb0a0",
 type: "sub_category",
 quantity: 100,
 id: "id_fosters",
@@ -398,11 +501,11 @@ price: 103,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.002Z",
+updated_at: "2017-03-16T08:59:29.407Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01865",
+_id: "58ca53f170cc840757dfb0a1",
 type: "sub_category",
 quantity: 100,
 id: "id_heineken_beer",
@@ -416,11 +519,11 @@ price: 130,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.004Z",
+updated_at: "2017-03-16T08:59:29.411Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01866",
+_id: "58ca53f170cc840757dfb0a2",
 type: "sub_category",
 quantity: 100,
 id: "id_kingfisher_ultra",
@@ -434,11 +537,11 @@ price: 130,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.006Z",
+updated_at: "2017-03-16T08:59:29.416Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01867",
+_id: "58ca53f170cc840757dfb0a3",
 type: "sub_category",
 quantity: 100,
 id: "id_miller_high_lige",
@@ -452,20 +555,11 @@ price: 120,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.008Z",
+updated_at: "2017-03-16T08:59:29.418Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184d",
-type: "category",
-id: "id_champagne",
-name: "CHAMPAGNE",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01868",
+_id: "58ca53f170cc840757dfb0a4",
 type: "sub_category",
 quantity: 100,
 id: "id_chandon_brut_bottle",
@@ -479,11 +573,11 @@ price: 1210,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.010Z",
+updated_at: "2017-03-16T08:59:29.422Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01869",
+_id: "58ca53f170cc840757dfb0a5",
 type: "sub_category",
 quantity: 100,
 id: "id_sula_brut_btl",
@@ -497,11 +591,11 @@ price: 1278,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.012Z",
+updated_at: "2017-03-16T08:59:29.425Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0186a",
+_id: "58ca53f170cc840757dfb0a6",
 type: "sub_category",
 quantity: 100,
 id: "id_sula_rose_wine_btl",
@@ -515,20 +609,11 @@ price: 567,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.013Z",
+updated_at: "2017-03-16T08:59:29.426Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184e",
-type: "category",
-id: "id_classic_cocktails",
-name: "CLASSIC COCKTAILS",
-sub_category_count_text: "4 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a0186b",
+_id: "58ca53f170cc840757dfb0a7",
 type: "sub_category",
 quantity: 100,
 id: "id_bacardi_cuba_life",
@@ -542,11 +627,11 @@ price: 245,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.014Z",
+updated_at: "2017-03-16T08:59:29.428Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0186c",
+_id: "58ca53f170cc840757dfb0a8",
 type: "sub_category",
 quantity: 100,
 id: "id_bacardi_mojito",
@@ -560,11 +645,11 @@ price: 256,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.016Z",
+updated_at: "2017-03-16T08:59:29.430Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0186d",
+_id: "58ca53f170cc840757dfb0a9",
 type: "sub_category",
 quantity: 100,
 id: "id_black_russian",
@@ -578,11 +663,11 @@ price: 245,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.018Z",
+updated_at: "2017-03-16T08:59:29.431Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0186e",
+_id: "58ca53f170cc840757dfb0aa",
 type: "sub_category",
 quantity: 100,
 id: "id_bloody_mary",
@@ -596,20 +681,11 @@ price: 245,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.019Z",
+updated_at: "2017-03-16T08:59:29.433Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0184f",
-type: "category",
-id: "id_gin",
-name: "GIN",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a0186f",
+_id: "58ca53f170cc840757dfb0ab",
 type: "sub_category",
 quantity: 100,
 id: "id_beefeater",
@@ -623,11 +699,11 @@ price: 110,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.021Z",
+updated_at: "2017-03-16T08:59:29.440Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01870",
+_id: "58ca53f170cc840757dfb0ac",
 type: "sub_category",
 quantity: 100,
 id: "id_bombay_sapphire",
@@ -641,11 +717,11 @@ price: 130,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.023Z",
+updated_at: "2017-03-16T08:59:29.442Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01871",
+_id: "58ca53f170cc840757dfb0ad",
 type: "sub_category",
 quantity: 100,
 id: "id_gordons",
@@ -659,20 +735,11 @@ price: 96,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.025Z",
+updated_at: "2017-03-16T08:59:29.443Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01850",
-type: "category",
-id: "id_house_wine",
-name: "HOUSE WINE",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01872",
+_id: "58ca53f170cc840757dfb0ae",
 type: "sub_category",
 quantity: 100,
 id: "id_house_red_wine_btl",
@@ -686,11 +753,11 @@ price: 834,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.028Z",
+updated_at: "2017-03-16T08:59:29.446Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01873",
+_id: "58ca53f170cc840757dfb0af",
 type: "sub_category",
 quantity: 100,
 id: "id_house_white_wine_btl",
@@ -704,20 +771,11 @@ price: 170,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.030Z",
+updated_at: "2017-03-16T08:59:29.448Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01851",
-type: "category",
-id: "id_imported_wine",
-name: "IMPORTED WINE",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01874",
+_id: "58ca53f170cc840757dfb0b0",
 type: "sub_category",
 quantity: 100,
 id: "id_jacob_creek_btl",
@@ -731,11 +789,11 @@ price: 1256,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.038Z",
+updated_at: "2017-03-16T08:59:29.458Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01875",
+_id: "58ca53f170cc840757dfb0b1",
 type: "sub_category",
 quantity: 100,
 id: "id_jacob_creek_by_glass",
@@ -749,20 +807,11 @@ price: 256,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.041Z",
+updated_at: "2017-03-16T08:59:29.459Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01852",
-type: "category",
-id: "id_liquers",
-name: "LIQUERS",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01876",
+_id: "58ca53f170cc840757dfb0b2",
 type: "sub_category",
 quantity: 100,
 id: "id_baileys_irish_cream",
@@ -776,11 +825,11 @@ price: 285,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.044Z",
+updated_at: "2017-03-16T08:59:29.461Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01877",
+_id: "58ca53f170cc840757dfb0b3",
 type: "sub_category",
 quantity: 100,
 id: "id_kahlua",
@@ -794,20 +843,11 @@ price: 256,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.046Z",
+updated_at: "2017-03-16T08:59:29.463Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01853",
-type: "category",
-id: "id_martini",
-name: "MARTINI",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01878",
+_id: "58ca53f170cc840757dfb0b4",
 type: "sub_category",
 quantity: 100,
 id: "id_appletini",
@@ -821,11 +861,11 @@ price: 245,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.047Z",
+updated_at: "2017-03-16T08:59:29.464Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01879",
+_id: "58ca53f170cc840757dfb0b5",
 type: "sub_category",
 quantity: 100,
 id: "id_classic_martini",
@@ -839,20 +879,11 @@ price: 256,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.048Z",
+updated_at: "2017-03-16T08:59:29.465Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01854",
-type: "category",
-id: "id_mixers",
-name: "MIXERS",
-sub_category_count_text: "10 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a0187a",
+_id: "58ca53f170cc840757dfb0b6",
 type: "sub_category",
 quantity: 100,
 id: "id_coke",
@@ -863,14 +894,14 @@ high: 30,
 min_price: 20,
 max_price: 35,
 price: 25,
-sold_quantity: 0,
+sold_quantity: 4,
 price_indicator: 1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.049Z",
+updated_at: "2017-03-16T08:59:29.468Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0187b",
+_id: "58ca53f170cc840757dfb0b7",
 type: "sub_category",
 quantity: 100,
 id: "id_diet_coke",
@@ -881,14 +912,14 @@ high: 38,
 min_price: 23,
 max_price: 40,
 price: 30,
-sold_quantity: 0,
+sold_quantity: 3,
 price_indicator: -1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.051Z",
+updated_at: "2017-03-16T08:59:29.470Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0187c",
+_id: "58ca53f170cc840757dfb0b8",
 type: "sub_category",
 quantity: 100,
 id: "id_ginger_ale",
@@ -902,11 +933,11 @@ price: 80,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.052Z",
+updated_at: "2017-03-16T08:59:29.473Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0187d",
+_id: "58ca53f170cc840757dfb0b9",
 type: "sub_category",
 quantity: 100,
 id: "id_juice",
@@ -920,11 +951,11 @@ price: 56,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.054Z",
+updated_at: "2017-03-16T08:59:29.474Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0187e",
+_id: "58ca53f170cc840757dfb0ba",
 type: "sub_category",
 quantity: 100,
 id: "id_on_the_rocks",
@@ -938,11 +969,11 @@ price: 6,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.055Z",
+updated_at: "2017-03-16T08:59:29.475Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0187f",
+_id: "58ca53f170cc840757dfb0bb",
 type: "sub_category",
 quantity: 100,
 id: "id_red_bull",
@@ -953,14 +984,14 @@ high: 115,
 min_price: 110,
 max_price: 120,
 price: 110,
-sold_quantity: 0,
+sold_quantity: 3,
 price_indicator: 1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.057Z",
+updated_at: "2017-03-16T08:59:29.476Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01880",
+_id: "58ca53f170cc840757dfb0bc",
 type: "sub_category",
 quantity: 100,
 id: "id_soda",
@@ -974,11 +1005,11 @@ price: 3,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.058Z",
+updated_at: "2017-03-16T08:59:29.476Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01881",
+_id: "58ca53f170cc840757dfb0bd",
 type: "sub_category",
 quantity: 100,
 id: "id_sprite",
@@ -992,11 +1023,11 @@ price: 25,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.060Z",
+updated_at: "2017-03-16T08:59:29.478Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01882",
+_id: "58ca53f170cc840757dfb0be",
 type: "sub_category",
 quantity: 100,
 id: "id_thums_up",
@@ -1010,11 +1041,11 @@ price: 26,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.061Z",
+updated_at: "2017-03-16T08:59:29.479Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01883",
+_id: "58ca53f170cc840757dfb0bf",
 type: "sub_category",
 quantity: 100,
 id: "id_tonic_water",
@@ -1028,20 +1059,11 @@ price: 85,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: false,
-updated_at: "2017-02-28T17:08:55.062Z",
+updated_at: "2017-03-16T08:59:29.480Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01855",
-type: "category",
-id: "id_non_alcoholic",
-name: "NON ALCOHOLIC",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01884",
+_id: "58ca53f170cc840757dfb0c0",
 type: "sub_category",
 quantity: 100,
 id: "id_sweet_heart",
@@ -1055,11 +1077,11 @@ price: 256,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.063Z",
+updated_at: "2017-03-16T08:59:29.482Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01885",
+_id: "58ca53f170cc840757dfb0c1",
 type: "sub_category",
 quantity: 100,
 id: "id_chill_out",
@@ -1073,20 +1095,11 @@ price: 356,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.064Z",
+updated_at: "2017-03-16T08:59:29.484Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01856",
-type: "category",
-id: "id_premium_whisky",
-name: "PREMIUM WHISKY",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01886",
+_id: "58ca53f170cc840757dfb0c2",
 type: "sub_category",
 quantity: 100,
 id: "id_black_n_white",
@@ -1100,11 +1113,11 @@ price: 145,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.065Z",
+updated_at: "2017-03-16T08:59:29.486Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01887",
+_id: "58ca53f170cc840757dfb0c3",
 type: "sub_category",
 quantity: 100,
 id: "id_black_dog_12_yo",
@@ -1118,11 +1131,11 @@ price: 130,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.066Z",
+updated_at: "2017-03-16T08:59:29.488Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01888",
+_id: "58ca53f170cc840757dfb0c4",
 type: "sub_category",
 quantity: 100,
 id: "id_vat_69",
@@ -1136,20 +1149,11 @@ price: 87,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.068Z",
+updated_at: "2017-03-16T08:59:29.490Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01857",
-type: "category",
-id: "id_rum",
-name: "RUM",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01889",
+_id: "58ca53f170cc840757dfb0c5",
 type: "sub_category",
 quantity: 100,
 id: "id_bacardi_black",
@@ -1163,11 +1167,11 @@ price: 24,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.069Z",
+updated_at: "2017-03-16T08:59:29.492Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0188a",
+_id: "58ca53f170cc840757dfb0c6",
 type: "sub_category",
 quantity: 100,
 id: "id_captain_morgan",
@@ -1181,20 +1185,11 @@ price: 32,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.071Z",
+updated_at: "2017-03-16T08:59:29.493Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01858",
-type: "category",
-id: "id_scotch_whisky",
-name: "SCOTCH WHISKY",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a0188b",
+_id: "58ca53f170cc840757dfb0c7",
 type: "sub_category",
 quantity: 100,
 id: "id_ballantines",
@@ -1208,11 +1203,11 @@ price: 150,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.073Z",
+updated_at: "2017-03-16T08:59:29.494Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0188c",
+_id: "58ca53f170cc840757dfb0c8",
 type: "sub_category",
 quantity: 100,
 id: "id_dewars_white_label",
@@ -1226,20 +1221,11 @@ price: 143,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.078Z",
+updated_at: "2017-03-16T08:59:29.497Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a01859",
-type: "category",
-id: "id_shots",
-name: "SHOTS",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a0188d",
+_id: "58ca53f170cc840757dfb0c9",
 type: "sub_category",
 quantity: 100,
 id: "id_b52",
@@ -1253,11 +1239,11 @@ price: 255,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.079Z",
+updated_at: "2017-03-16T08:59:29.499Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0188e",
+_id: "58ca53f170cc840757dfb0ca",
 type: "sub_category",
 quantity: 100,
 id: "id_kamikaze",
@@ -1271,11 +1257,11 @@ price: 152,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.080Z",
+updated_at: "2017-03-16T08:59:29.500Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a0188f",
+_id: "58ca53f170cc840757dfb0cb",
 type: "sub_category",
 quantity: 100,
 id: "id_tequila",
@@ -1289,20 +1275,11 @@ price: 87,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.082Z",
+updated_at: "2017-03-16T08:59:29.503Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185a",
-type: "category",
-id: "id_single_malts",
-name: "SINGLE MALTS",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01890",
+_id: "58ca53f170cc840757dfb0cc",
 type: "sub_category",
 quantity: 100,
 id: "id_cardhu",
@@ -1316,11 +1293,11 @@ price: 390,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.082Z",
+updated_at: "2017-03-16T08:59:29.504Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01891",
+_id: "58ca53f170cc840757dfb0cd",
 type: "sub_category",
 quantity: 100,
 id: "id_oban",
@@ -1334,20 +1311,11 @@ price: 389,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.083Z",
+updated_at: "2017-03-16T08:59:29.505Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185b",
-type: "category",
-id: "id_vodka",
-name: "VODKA",
-sub_category_count_text: "2 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01892",
+_id: "58ca53f170cc840757dfb0ce",
 type: "sub_category",
 quantity: 100,
 id: "id_absolut",
@@ -1361,11 +1329,11 @@ price: 120,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.084Z",
+updated_at: "2017-03-16T08:59:29.506Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01893",
+_id: "58ca53f170cc840757dfb0cf",
 type: "sub_category",
 quantity: 100,
 id: "id_ciroc",
@@ -1379,20 +1347,11 @@ price: 229,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.085Z",
+updated_at: "2017-03-16T08:59:29.507Z",
 __v: 0
 },
 {
-_id: "58b5aea69eddf2d9a7a0185c",
-type: "category",
-id: "id_whisky",
-name: "WHISKY",
-sub_category_count_text: "3 Items",
-img_url: "http://www.pngpix.com/wp-content/uploads/2016/08/PNGPIX-COM-Alcohol-Bottle-PNG-Transparent-Image.png",
-__v: 0
-},
-{
-_id: "58b5aea79eddf2d9a7a01894",
+_id: "58ca53f170cc840757dfb0d0",
 type: "sub_category",
 quantity: 100,
 id: "id_antiquity_blue",
@@ -1406,11 +1365,11 @@ price: 63,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.086Z",
+updated_at: "2017-03-16T08:59:29.508Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01895",
+_id: "58ca53f170cc840757dfb0d1",
 type: "sub_category",
 quantity: 100,
 id: "id_blenders_pride",
@@ -1424,11 +1383,11 @@ price: 55,
 sold_quantity: 0,
 price_indicator: 1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.087Z",
+updated_at: "2017-03-16T08:59:29.509Z",
 __v: 0
 },
 {
-_id: "58b5aea79eddf2d9a7a01896",
+_id: "58ca53f170cc840757dfb0d2",
 type: "sub_category",
 quantity: 100,
 id: "id_signature",
@@ -1442,76 +1401,18 @@ price: 58,
 sold_quantity: 0,
 price_indicator: -1,
 mixer_available: true,
-updated_at: "2017-02-28T17:08:55.088Z",
+updated_at: "2017-03-16T08:59:29.510Z",
 __v: 0
-}
-],
-stockMixerList:
-[
-{
-type: "mixer",
-id: "id_coke",
-name: "COKE",
-price: 25
-},
-{
-type: "mixer",
-id: "id_diet_coke",
-name: "DIET COKE",
-price: 30
-},
-{
-type: "mixer",
-id: "id_ginger_ale",
-name: "GINGER ALE",
-price: 80
-},
-{
-type: "mixer",
-id: "id_juice",
-name: "JUICE",
-price: 56
-},
-{
-type: "mixer",
-id: "id_on_the_rocks",
-name: "ON THE ROCKS",
-price: 6
-},
-{
-type: "mixer",
-id: "id_red_bull",
-name: "RED BULL",
-price: 110
-},
-{
-type: "mixer",
-id: "id_soda",
-name: "SODA",
-price: 3
-},
-{
-type: "mixer",
-id: "id_sprite",
-name: "SPRITE",
-price: 25
-},
-{
-type: "mixer",
-id: "id_thums_up",
-name: "THUMS UP",
-price: 26
-},
-{
-type: "mixer",
-id: "id_tonic_water",
-name: "TONIC WATER",
-price: 85
 }
 ]
 }
 };
 
-console.log($scope.response);
+
+    $scope.getCategories = function() {
+        $scope.formatCategories(Object.assign({}, $scope.response));
+    }
+
+    $scope.getCategories();
 
 })
