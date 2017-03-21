@@ -15,6 +15,9 @@
         <div class="col-lg-1 col-md-1 col-xs-1 entityColumn">
             Mixer available
         </div>
+        <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
+            <button type="button" class = "btn btn-success" name="button" ng-click = "saveChanges()">Save Changes</button>
+        </div>
     </div>
     <div class="col-md-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
         <button type="button" name="button" class="btn btn-success">Add new cateory</button>
@@ -59,7 +62,7 @@
                     <input type="checkbox" ng-checked="newSubCategory.mixer" aria-label="Mixer">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <button type="button" class = "btn btn-primary" name="button">Add sub cateory</button>
+                    <button type="button" class = "btn btn-primary" name="button" ng-click = "addSubCategory(categoryId)">Add sub cateory</button>
                 </div>
             </div>
         </div>

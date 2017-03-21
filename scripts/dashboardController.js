@@ -1,5 +1,5 @@
 barApp.controller('dashboardController', function($route, $scope, $rootScope) {
-    $scope.categories = ["id1"];
+    $scope.categories = [];
     $scope.newSubCategory = {
         name : "",
         minPrice : '',
@@ -7,36 +7,9 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         quantity : '',
         mixer : false
     }
-    $scope.subCategoriesHash = {
-        subCat1 : {
-            name : "subCat1",
-            minPrice : 100,
-            maxPrice : 200,
-            quantity : 10,
-            mixer : true
-        },
-        subCat2 : {
-            name : "subCat2",
-            minPrice : 100,
-            maxPrice : 200,
-            quantity : 10,
-            mixer : true
-        },
-        subCat3 : {
-            name : "subCat3",
-            minPrice : 100,
-            maxPrice : 200,
-            quantity : 10,
-            mixer : false
-        }
-    };
-    $scope.categoriesHash = {
-        id1 : {
-            subCateogoryIds : ["subCat1", "subCat2", "subCat3"],
-            count : 3,
-            name : "Whiskey"
-        }
-    }
+    $scope.subCategoriesHash = {};
+
+    $scope.categoriesHash = {};
 
     $scope.formatCategories = function(response) {
         if(!response || !response.data) {
@@ -57,6 +30,44 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
 
     }
 
+    var generateGUID = function(){
+        var hiddenStr = 'xxxxxxxx4xxxyxxx';
+        var hidnGUID = hiddenStr;
+        var uid = hidnGUID.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = (c == 'x') ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+        return uid;
+    }
+
+    $scope.addSubCategory = function(categoryId) {
+        console.log(categoryId);
+        var newSubCatObj = {
+            name : $scope.newSubCategory.name || "",
+            min_price : $scope.newSubCategory.minPrice || 0,
+            max_price : $scope.newSubCategory.maxPrice || 0,
+            quantity : $scope.newSubCategory.quantity || 0,
+            mixer_available : $scope.newSubCategory.mixer,
+            high : $scope.newSubCategory.maxPrice || 0,
+            low : $scope.newSubCategory.minPrice || 0
+        }
+
+        if(newSubCatObj.name) {
+            var newGUID = generateGUID();
+            newSubCatObj['id'] = newGUID;
+            $scope.subCategoriesHash[newGUID] = newSubCatObj;
+            $scope.categoriesHash[categoryId]['sub_category_ids'].push(newGUID);
+            clearNewSubCatObj();
+        }
+    }
+
+    var clearNewSubCatObj = function() {
+        $scope.newSubCategory['name'] = "";
+        $scope.newSubCategory['minPrice'] =  '';
+        $scope.newSubCategory['maxPrice'] = '';
+        $scope.newSubCategory['quantity'] = '';
+        $scope.newSubCategory['mixer'] = false;
+    }
 
 
     $scope.response = {
