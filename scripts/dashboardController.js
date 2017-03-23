@@ -1,5 +1,6 @@
 barApp.controller('dashboardController', function($route, $scope, $rootScope) {
     $scope.categories = [];
+    $scope.newSubCategoryObject = {};
     $scope.newSubCategory = {
         name : "",
         minPrice : '',
@@ -8,7 +9,6 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         mixer : false
     }
     $scope.subCategoriesHash = {};
-
     $scope.categoriesHash = {};
 
     $scope.formatCategories = function(response) {
@@ -22,6 +22,13 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         categories.forEach(function(c, i) {
             $scope.categoriesHash[c.id] = c;
             $scope.categories.push(c.id);
+            $scope.newSubCategoryObject[c.id + '_new'] = {
+                name : '',
+                minPrice : '',
+                maxPrice : '',
+                quantity : '',
+                mixer : false
+            }
         })
 
         subCategories.forEach(function(sc, j) {
@@ -43,13 +50,14 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
     $scope.addSubCategory = function(categoryId) {
         console.log(categoryId);
         var newSubCatObj = {
-            name : $scope.newSubCategory.name || "",
-            min_price : $scope.newSubCategory.minPrice || 0,
-            max_price : $scope.newSubCategory.maxPrice || 0,
-            quantity : $scope.newSubCategory.quantity || 0,
-            mixer_available : $scope.newSubCategory.mixer,
-            high : $scope.newSubCategory.maxPrice || 0,
-            low : $scope.newSubCategory.minPrice || 0
+            name : $scope.newSubCategoryObject[categoryId+'_new'].name || "",
+            min_price : $scope.newSubCategoryObject[categoryId+'_new'].minPrice || 0,
+            max_price : $scope.newSubCategoryObject[categoryId+'_new'].maxPrice || 0,
+            quantity : $scope.newSubCategoryObject[categoryId+'_new'].quantity || 0,
+            mixer_available : $scope.newSubCategoryObject[categoryId+'_new'].mixer,
+            high : $scope.newSubCategoryObject[categoryId+'_new'].maxPrice || 0,
+            low : $scope.newSubCategoryObject[categoryId+'_new'].minPrice || 0,
+            state : 'insert'
         }
 
         if(newSubCatObj.name) {
@@ -57,16 +65,31 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
             newSubCatObj['id'] = newGUID;
             $scope.subCategoriesHash[newGUID] = newSubCatObj;
             $scope.categoriesHash[categoryId]['sub_category_ids'].push(newGUID);
-            clearNewSubCatObj();
+            clearNewSubCatObj(categoryId);
         }
     }
 
-    var clearNewSubCatObj = function() {
-        $scope.newSubCategory['name'] = "";
-        $scope.newSubCategory['minPrice'] =  '';
-        $scope.newSubCategory['maxPrice'] = '';
-        $scope.newSubCategory['quantity'] = '';
-        $scope.newSubCategory['mixer'] = false;
+    var clearNewSubCatObj = function(categoryId) {
+        $scope.newSubCategoryObject[categoryId+'_new']['name'] = "";
+        $scope.newSubCategoryObject[categoryId+'_new']['minPrice'] =  '';
+        $scope.newSubCategoryObject[categoryId+'_new']['maxPrice'] = '';
+        $scope.newSubCategoryObject[categoryId+'_new']['quantity'] = '';
+        $scope.newSubCategoryObject[categoryId+'_new']['mixer'] = false;
+    }
+
+    $scope.subCategoryModified = function(categoryId, subCategoryId) {
+        // todo : mark as modified
+        $scope.subCategoriesHash[subCategoryId]['state'] = 'modified';
+    }
+
+    $scope.deleteSubCategory = function(categoryId, subCategoryId) {
+        // todo : mark as deleted
+        var result = confirm( "Are you sure baby?" );
+        if (result) {
+            $scope.subCategoriesHash[subCategoryId]['state'] = 'deleted';
+        } else {
+            //todo : don't mark delete
+        }
     }
 
 

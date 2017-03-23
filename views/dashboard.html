@@ -20,46 +20,48 @@
         </div>
     </div>
     <div class="col-md-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
-        <button type="button" name="button" class="btn btn-success">Add new cateory</button>
+        <button type="button" name="button" class="btn btn-success" ng-click = "addCategory()">Add new cateory</button>
         <input type = "text" placeholder="New category name" ng-model = "newCategory">
     </div>
     <div class="row categoryRow" ng-repeat = "categoryId in categories track by $index" ng-init = "categoryObj = categoriesHash[categoryId]">
         <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel" ng-bind = "(categoryObj.name) + ' (' +  (categoryObj.sub_category_ids.length || 0) + ')'"></div>
 
         <div class="col-lg-12 col-md-12">
-            <div class="row subCategoryRow" ng-repeat = "subCateogoryId in categoryObj.sub_category_ids" ng-init = "subCategoryObj = subCategoriesHash[subCateogoryId]">
+            <div class="row subCategoryRow" ng-repeat = "subCategoryId in categoryObj.sub_category_ids" ng-init = "subCategoryObj = subCategoriesHash[subCategoryId]" ng-show = "subCategoryObj.state != 'deleted'">
                 <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
-                    <input type = "text" placeholder="Drink name" ng-model = "subCategoryObj.name">
+                    <input type = "text" placeholder="Drink name" ng-model = "subCategoryObj.name" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Min price" min="0" ng-model = "subCategoryObj.low">
+                    <input type = "number" placeholder="Min price" min="0" ng-model = "subCategoryObj.low" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Max price" min="0" ng-model = "subCategoryObj.high">
+                    <input type = "number" placeholder="Max price" min="0" ng-model = "subCategoryObj.high" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Quantity" min="0" ng-model = "subCategoryObj.quantity">
+                    <input type = "number" placeholder="Quantity" min="0" ng-model = "subCategoryObj.quantity" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
                 <div class="col-lg-1 col-md-2 col-xs-1 entityColumn">
-                    <input type="checkbox" ng-checked="subCategoryObj.mixer_available" aria-label="Mixer">
-                    <!-- <input type = "text" placeholder="Mixer name" ng-model = "subCategoryObj.mixer"> -->
+                    <input type="checkbox" ng-checked="subCategoryObj.mixer_available" aria-label="Mixer" ng-model = "subCategoryObj.mixer_available" ng-change = "subCategoryModified(categoryId, subCategoryId)">
+                </div>
+                <div class="col-lg-1 col-md-1 col-xs-1 entityColumn">
+                    <button type="button" class = "btn btn-danger" name="button" ng-click = "deleteSubCategory(categoryId, subCategoryId)">Remove</button>
                 </div>
             </div>
             <div class="row subCategoryRow newSubCategory">
                 <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
-                    <input type = "text" placeholder="New drink name" ng-model = "newSubCategory.name">
+                    <input type = "text" placeholder="New drink name" ng-model = "newSubCategoryObject[categoryId+'_new'].name">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Min price" min="0" ng-model = "newSubCategory.minPrice">
+                    <input type = "number" placeholder="Min price" min="0" ng-model = "newSubCategoryObject[categoryId+'_new'].minPrice">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Max price" min="0" ng-model = "newSubCategory.maxPrice">
+                    <input type = "number" placeholder="Max price" min="0" ng-model = "newSubCategoryObject[categoryId+'_new'].maxPrice">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <input type = "number" placeholder="Quantity" min="0" ng-model = "newSubCategory.quantity">
+                    <input type = "number" placeholder="Quantity" min="0" ng-model = "newSubCategoryObject[categoryId+'_new'].quantity">
                 </div>
                 <div class="col-lg-1 col-md-2 col-xs-1 entityColumn">
-                    <input type="checkbox" ng-checked="newSubCategory.mixer" aria-label="Mixer">
+                    <input type="checkbox" ng-checked="newSubCategoryObject[categoryId+'_new'].mixer" ng-model = "newSubCategoryObject[categoryId+'_new'].mixer" aria-label="Mixer">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
                     <button type="button" class = "btn btn-primary" name="button" ng-click = "addSubCategory(categoryId)">Add sub cateory</button>
