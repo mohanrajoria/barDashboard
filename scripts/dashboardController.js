@@ -1,6 +1,7 @@
 barApp.controller('dashboardController', function($route, $scope, $rootScope) {
     $scope.categories = [];
     $scope.newSubCategoryObject = {};
+    $scope.newCategoryObject = {};
     $scope.newSubCategory = {
         name : "",
         minPrice : '',
@@ -10,6 +11,10 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
     }
     $scope.subCategoriesHash = {};
     $scope.categoriesHash = {};
+    $scope.newCategoryAtTheEnd = {
+        name : '',
+        state : 'insert'
+    }
 
     $scope.formatCategories = function(response) {
         if(!response || !response.data) {
@@ -20,6 +25,7 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         var subCategories = data.stockSubCategoryList;
 
         categories.forEach(function(c, i) {
+            c['state'] = '';
             $scope.categoriesHash[c.id] = c;
             $scope.categories.push(c.id);
             $scope.newSubCategoryObject[c.id + '_new'] = {
@@ -29,12 +35,15 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
                 quantity : '',
                 mixer : false
             }
+            $scope.newCategoryObject[c.id + '_new'] = {
+                name : '',
+                state : 'insert'
+            }
         })
 
         subCategories.forEach(function(sc, j) {
             $scope.subCategoriesHash[sc.id] = sc;
         })
-
     }
 
     var generateGUID = function(){
@@ -57,7 +66,7 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
             mixer_available : $scope.newSubCategoryObject[categoryId+'_new'].mixer,
             high : $scope.newSubCategoryObject[categoryId+'_new'].maxPrice || 0,
             low : $scope.newSubCategoryObject[categoryId+'_new'].minPrice || 0,
-            state : 'insert'
+            state : 'inserted'
         }
 
         if(newSubCatObj.name) {
@@ -87,6 +96,68 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         var result = confirm( "Are you sure baby?" );
         if (result) {
             $scope.subCategoriesHash[subCategoryId]['state'] = 'deleted';
+            var subCatIndex = $scope.categoriesHash[categoryId]['sub_category_ids'].indexOf(subCategoryId);
+            $scope.categoriesHash[categoryId]['sub_category_ids'].splice(subCatIndex, 1);
+        } else {
+            //todo : don't mark delete
+        }
+    }
+
+    $scope.addCategory = function(categoryId, isAtTheEnd) {
+        if(!categoryId && !isAtTheEnd) return;
+        if(isAtTheEnd) {
+            var categoryName = (isAtTheEnd) ? $scope.newCategoryAtTheEnd.name : $scope.newCategoryObject[categoryId + '_new'].name;
+        } else {
+            $scope.newCategoryObject[categoryId + '_new'].name = "";
+        }
+        $scope.newCategoryAtTheEnd.name = "";
+        if(!categoryName || !categoryName.trim()) {
+            return;
+        }
+        var newGUID = generateGUID();
+        var followedCategoryIndex;
+
+        $scope.categoriesHash[newGUID] = {
+            name : categoryName,
+            sub_category_ids : [],
+            state : 'insert'
+        }
+
+        $scope.newSubCategoryObject[newGUID + '_new'] = {
+            name : '',
+            state : 'insert'
+        }
+
+        $scope.newCategoryObject[newGUID + '_new'] = {
+            name : ''
+        }
+
+        if(isAtTheEnd) {
+            $scope.categories.push(newGUID)
+            return;
+        }
+        followedCategoryIndex = $scope.categories.indexOf(categoryId);
+        $scope.categories.splice(followedCategoryIndex, 0, newGUID);
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        }
+    }
+
+    $scope.categoryModified = function(categoryId) {
+        if(!categoryId) return;
+        $scope.categoriesHash[categoryId].state = 'modified';
+    }
+
+    $scope.removeCategory = function(categoryId) {
+        if(!categoryId) return;
+        var result = confirm( "Are you sure baby?" );
+        if (result) {
+            let catIndex = $scope.categories.indexOf(categoryId);
+            $scope.categoriesHash[categoryId].state = 'deleted';
+            $scope.categories.splice(catIndex, 1);
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
         } else {
             //todo : don't mark delete
         }

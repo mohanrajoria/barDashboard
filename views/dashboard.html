@@ -19,12 +19,18 @@
             <button type="button" class = "btn btn-success" name="button" ng-click = "saveChanges()">Save Changes</button>
         </div>
     </div>
-    <div class="col-md-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
-        <button type="button" name="button" class="btn btn-success" ng-click = "addCategory()">Add new cateory</button>
-        <input type = "text" placeholder="New category name" ng-model = "newCategory">
-    </div>
-    <div class="row categoryRow" ng-repeat = "categoryId in categories track by $index" ng-init = "categoryObj = categoriesHash[categoryId]">
-        <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel" ng-bind = "(categoryObj.name) + ' (' +  (categoryObj.sub_category_ids.length || 0) + ')'"></div>
+    <div class="row categoryRow" ng-repeat = "categoryId in categories" ng-init = "categoryObj = categoriesHash[categoryId]">
+        <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel">
+            <div class="col-lg-6 col-md-6 col-xs-12 category">
+                <input type = "text" placeholder="New category name" ng-model = "categoryObj.name" ng-change = "categoryModified(categoryId)">
+                <span ng-bind = "'  (' +  (categoryObj.sub_category_ids.length || 0) + ')'"></span>
+                <button type="button" name="button" class="btn btn-danger F-R" ng-click = "removeCategory(categoryId)">Remove</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 addCategory">
+                <button type="button" name="button" class="btn btn-success F-R" ng-click = "addCategory(categoryId)">Add new cateory</button>
+                <input type = "text" placeholder="New category name" ng-model = "newCategoryObject[categoryId+'_new'].name" class = "F-R">
+            </div>
+        </div>
 
         <div class="col-lg-12 col-md-12">
             <div class="row subCategoryRow" ng-repeat = "subCategoryId in categoryObj.sub_category_ids" ng-init = "subCategoryObj = subCategoriesHash[subCategoryId]" ng-show = "subCategoryObj.state != 'deleted'">
@@ -67,6 +73,12 @@
                     <button type="button" class = "btn btn-primary" name="button" ng-click = "addSubCategory(categoryId)">Add sub cateory</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row categoryLabel M-T-0">
+        <div class="col-lg-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
+            <button type="button" name="button" class="btn btn-success F-R" ng-click = "addCategory('', true)">Add new cateory</button>
+            <input type = "text" placeholder="New category name" ng-model = "newCategoryAtTheEnd.name" class = "F-R">
         </div>
     </div>
 </div>
