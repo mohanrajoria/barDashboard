@@ -24,10 +24,10 @@
             <div class="col-lg-6 col-md-6 col-xs-12 category">
                 <input type = "text" placeholder="New category name" ng-model = "categoryObj.name" ng-change = "categoryModified(categoryId)">
                 <span ng-bind = "'  (' +  (categoryObj.sub_category_ids.length || 0) + ')'"></span>
-                <button type="button" name="button" class="btn btn-danger F-R" ng-click = "removeCategory(categoryId)">Remove</button>
+                <button type="button" name="button" class="btn btn-danger F-R remove" ng-click = "removeCategory(categoryId)">X</button>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12 addCategory">
-                <button type="button" name="button" class="btn btn-success F-R" ng-click = "addCategory(categoryId)">Add new cateory</button>
+                <button type="button" name="button" class="btn btn-primary F-R add" ng-click = "addCategory(categoryId)">+</button>
                 <input type = "text" placeholder="New category name" ng-model = "newCategoryObject[categoryId+'_new'].name" class = "F-R">
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <input type="checkbox" ng-checked="subCategoryObj.mixer_available" aria-label="Mixer" ng-model = "subCategoryObj.mixer_available" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
                 <div class="col-lg-1 col-md-1 col-xs-1 entityColumn">
-                    <button type="button" class = "btn btn-danger" name="button" ng-click = "deleteSubCategory(categoryId, subCategoryId)">Remove</button>
+                    <button type="button" class = "btn btn-danger remove" name="button" ng-click = "deleteSubCategory(categoryId, subCategoryId)">X</button>
                 </div>
             </div>
             <div class="row subCategoryRow newSubCategory">
@@ -70,14 +70,14 @@
                     <input type="checkbox" ng-checked="newSubCategoryObject[categoryId+'_new'].mixer" ng-model = "newSubCategoryObject[categoryId+'_new'].mixer" aria-label="Mixer">
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-2 entityColumn">
-                    <button type="button" class = "btn btn-primary" name="button" ng-click = "addSubCategory(categoryId)">Add sub cateory</button>
+                    <button type="button" class = "btn btn-primary add" name="button" ng-click = "addSubCategory(categoryId)">+</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row categoryLabel M-T-0">
         <div class="col-lg-offset-6 col-lg-6 col-md-6 col-xs-12 addCategory">
-            <button type="button" name="button" class="btn btn-success F-R" ng-click = "addCategory('', true)">Add new cateory</button>
+            <button type="button" name="button" class="btn btn-primary F-R add" ng-click = "addCategory('', true)">+</button>
             <input type = "text" placeholder="New category name" ng-model = "newCategoryAtTheEnd.name" class = "F-R">
         </div>
     </div>

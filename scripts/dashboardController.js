@@ -104,10 +104,12 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
     }
 
     $scope.addCategory = function(categoryId, isAtTheEnd) {
+        var categoryName = "";
         if(!categoryId && !isAtTheEnd) return;
         if(isAtTheEnd) {
-            var categoryName = (isAtTheEnd) ? $scope.newCategoryAtTheEnd.name : $scope.newCategoryObject[categoryId + '_new'].name;
+            categoryName = $scope.newCategoryAtTheEnd.name;
         } else {
+            categoryName = $scope.newCategoryObject[categoryId + '_new'].name;
             $scope.newCategoryObject[categoryId + '_new'].name = "";
         }
         $scope.newCategoryAtTheEnd.name = "";

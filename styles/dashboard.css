@@ -66,7 +66,17 @@ input[type="number"] {
 .M-T-0{
     margin-top: 0px;
 }
-.addCategory button {
+.addCategory button.remove {
     float: right;
     margin-top: 6px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 22px;
+    line-height: 32px;
+}
+.remove{
+    border-radius: 50%;
+}
+.add{
+    margin-top: 7px;
 }
