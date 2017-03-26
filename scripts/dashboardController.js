@@ -97,7 +97,7 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         if (result) {
             $scope.subCategoriesHash[subCategoryId]['state'] = 'deleted';
             var subCatIndex = $scope.categoriesHash[categoryId]['sub_category_ids'].indexOf(subCategoryId);
-            $scope.categoriesHash[categoryId]['sub_category_ids'].splice(subCatIndex, 1);
+            // $scope.categoriesHash[categoryId]['sub_category_ids'].splice(subCatIndex, 1);
         } else {
             //todo : don't mark delete
         }
@@ -156,13 +156,33 @@ barApp.controller('dashboardController', function($route, $scope, $rootScope) {
         if (result) {
             let catIndex = $scope.categories.indexOf(categoryId);
             $scope.categoriesHash[categoryId].state = 'deleted';
-            $scope.categories.splice(catIndex, 1);
+            // $scope.categories.splice(catIndex, 1);
             if(!$scope.$$phase) {
                 $scope.$apply();
             }
         } else {
             //todo : don't mark delete
         }
+    }
+
+    $scope.saveChanges = function() {
+        var categoriesToSave = [];
+        var subCategoriesToSave = [];
+        $scope.categories.forEach(function(id, i) {
+            categoriesToSave.push($scope.categoriesHash[id]);
+        })
+
+        Object.keys($scope.subCategoriesHash).forEach(function(id, i) {
+            subCategoriesToSave.push($scope.subCategoriesHash[id]);
+        })
+
+        console.log('Categories to save');
+        console.log(categoriesToSave);
+
+        console.log('Sub-Categories to save');
+        console.log(subCategoriesToSave);
+
+        // todo : make an api call over here and send these arrays to save
     }
 
 

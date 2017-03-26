@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row categoryRow" ng-repeat = "categoryId in categories" ng-init = "categoryObj = categoriesHash[categoryId]">
-        <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel">
+        <div class="col-lg-12 col-md-12 col-xs-12 categoryLabel" ng-if = "categoryObj.state != 'deleted'">
             <div class="col-lg-6 col-md-6 col-xs-12 category">
                 <input type = "text" placeholder="New category name" ng-model = "categoryObj.name" ng-change = "categoryModified(categoryId)">
                 <span ng-bind = "'  (' +  (categoryObj.sub_category_ids.length || 0) + ')'"></span>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-lg-12 col-md-12">
-            <div class="row subCategoryRow" ng-repeat = "subCategoryId in categoryObj.sub_category_ids" ng-init = "subCategoryObj = subCategoriesHash[subCategoryId]" ng-show = "subCategoryObj.state != 'deleted'">
+            <div ng-if = "subCategoryObj.state != 'deleted'" class="row subCategoryRow" ng-repeat = "subCategoryId in categoryObj.sub_category_ids" ng-init = "subCategoryObj = subCategoriesHash[subCategoryId]" ng-show = "subCategoryObj.state != 'deleted'">
                 <div class="col-lg-3 col-md-3 col-xs-3 entityColumn">
                     <input type = "text" placeholder="Drink name" ng-model = "subCategoryObj.name" ng-change = "subCategoryModified(categoryId, subCategoryId)">
                 </div>
